@@ -1,9 +1,13 @@
 package com.supmemory.beans;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 import com.supmemory.R;
 import com.supmemory.statics.StaticValues;
@@ -16,16 +20,15 @@ public class Game {
 
     private Card[][] cards;
     private Number[] numbers;
-
     private Card cardChoice1;
     private Card cardChoice2;
 
     private int turn = 0;
     private boolean isGameLocked = false;
+    private int countWin = 0;
 
     private Timer timer = new Timer();
-
-    private Context context;
+    private Activity context;
 
     public Game(Activity context) {
 
@@ -172,6 +175,9 @@ public class Game {
                     Toast.makeText(this.context.getApplicationContext(), "Pairs found !", Toast.LENGTH_SHORT).show();
 
                     this.turn = 0;
+                    this.countWin++;
+
+                    checkWon();
                 }
                 else if(this.turn == 2
                         && !this.cardChoice1.equals(this.cardChoice2)) {
@@ -241,5 +247,34 @@ public class Game {
             }
         }, 2000);
 
+    }
+
+    public void checkWon() {
+
+        if(Game.this.countWin == (StaticValues.POSSIBILITIES_COUNT - 1)) {
+
+            new AlertDialog.Builder(Game.this.context)
+                    .setTitle("Congratulations !")
+                    .setMessage("You won. Do you want to reset the game ?")
+                    .setPositiveButton("Yes, reset", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            Intent intent = Game.this.context.getIntent();
+                            Game.this.context.finish();
+                            Game.this.context.startActivity(intent);
+
+                        }
+                    })
+                    .setNegativeButton("No, exit game", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            System.exit(0);
+
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
+        }
     }
 }
