@@ -3,4 +3,4 @@ SupMemory
 
 A pairs game on Android. 
 
-Developped with IntellijIDEA.
+Developed with IntellijIDEA.
