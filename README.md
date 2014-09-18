@@ -1,4 +1,6 @@
-supmemory
+SupMemory
 =========
 
-[ANDROID] A pairs game on Android
+A pairs game on Android. 
+
+Developped with IntellijIDEA.
