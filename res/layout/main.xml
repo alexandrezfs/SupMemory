@@ -22,7 +22,8 @@
             android:id="@+id/title"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:textColor="#ff000000" />
+            android:textColor="#ffff0006"
+            android:textSize="50dp"/>
 
     </LinearLayout>
 </LinearLayout>
