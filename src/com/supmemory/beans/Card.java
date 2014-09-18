@@ -3,14 +3,22 @@ package com.supmemory.beans;
 import android.widget.Button;
 import com.supmemory.statics.StaticValues;
 
+/**
+ * The Card entity placed in the Grid
+ */
 public class Card {
 
     private int number;
     private String face;
     private Button button;
 
-    public Card() { }
+    public Card() {}
 
+    /**
+     * Override of equals the check if 2 cards number are equal
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
 
@@ -25,6 +33,9 @@ public class Card {
 
     }
 
+    /**
+     * Backflip a card, change the button label
+     */
     public void backFlip() {
 
         this.button.setText(StaticValues.BACK_TEXT);
@@ -32,6 +43,9 @@ public class Card {
         this.face = StaticValues.BACK_LABEL;
     }
 
+    /**
+     * Topflip a card, change the button label
+     */
     public void topFlip() {
 
         this.button.setText(number + "");

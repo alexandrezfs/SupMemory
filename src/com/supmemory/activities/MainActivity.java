@@ -5,6 +5,9 @@ import android.os.Bundle;
 import com.supmemory.R;
 import com.supmemory.beans.Game;
 
+/**
+ * The Main activity
+ */
 public class MainActivity extends Activity {
 
     @Override

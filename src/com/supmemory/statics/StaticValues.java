@@ -1,5 +1,8 @@
 package com.supmemory.statics;
 
+/**
+ * Here are every static content
+ */
 public class StaticValues {
 
     public static int GRID_WIDTH = 3;

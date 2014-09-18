@@ -2,12 +2,10 @@ package com.supmemory.beans;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 import com.supmemory.R;
 import com.supmemory.statics.StaticValues;
@@ -16,6 +14,9 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Contains the GRID and associated methods for gameplay
+ */
 public class Game {
 
     private Card[][] cards;
@@ -30,6 +31,11 @@ public class Game {
     private Timer timer = new Timer();
     private Activity context;
 
+    /**
+     * The constructor creates the game.
+     * Initialize the Grid the Cards and associated GUI buttons
+     * @param context
+     */
     public Game(Activity context) {
 
         this.context = context;
@@ -37,6 +43,12 @@ public class Game {
 
         LinearLayout mainLayout = (LinearLayout) context.findViewById(R.id.mainLinearLayout);
         TableLayout tableLayout = new TableLayout(context);
+
+        final TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
+                0,
+                android.widget.TableRow.LayoutParams.MATCH_PARENT,
+                3f
+        );
 
         for (int row = 0; row < StaticValues.GRID_HEIGHT; row++) {
 
@@ -50,6 +62,7 @@ public class Game {
                 card.setNumber(-1);
                 card.setFace(StaticValues.BACK_LABEL);
 
+                newButton.setLayoutParams(layoutParams);
                 newButton.setText(StaticValues.BACK_TEXT);
                 newButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -73,6 +86,9 @@ public class Game {
         shuffle();
     }
 
+    /**
+     * Shuffle the cards and dispatch them on the Grid
+     */
     public void shuffle() {
 
         this.numbers = new Number[StaticValues.POSSIBILITIES_COUNT];
@@ -103,6 +119,12 @@ public class Game {
 
     }
 
+    /**
+     * Assign a random number to a case
+     * @param column
+     * @param row
+     * @return
+     */
     public boolean assignRandomNumber(int column, int row) {
 
         Random r = new Random();
@@ -145,6 +167,10 @@ public class Game {
 
     }
 
+    /**
+     * When the user clicks on a button, the action will depend on the turn count
+     * @param card
+     */
     public void play(Card card) {
 
         if(!this.isGameLocked) {
@@ -199,6 +225,10 @@ public class Game {
 
     }
 
+    /**
+     * Temporary lock the game, backflip the card at the end
+     * @param cardToBackflip
+     */
     public void tempLockGame(final Card cardToBackflip) {
 
         this.isGameLocked = true;
@@ -224,6 +254,9 @@ public class Game {
 
     }
 
+    /**
+     * Pause before the backflip of both of selected cards
+     */
     public void pauseBeforeBackflip() {
 
         this.isGameLocked = true;
@@ -249,6 +282,9 @@ public class Game {
 
     }
 
+    /**
+     * Check if user won or not
+     */
     public void checkWon() {
 
         if(Game.this.countWin == (StaticValues.POSSIBILITIES_COUNT - 1)) {
